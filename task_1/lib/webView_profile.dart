@@ -19,6 +19,7 @@ class _WebViewProfileState extends State<WebViewProfile> {
   late final WebViewController webViewController;
 
   double loadingPercentage = 0;
+  bool isError = false;
 
   //initialize webview
   @override
@@ -36,18 +37,29 @@ class _WebViewProfileState extends State<WebViewProfile> {
             });
           },
           onProgress: (progress) {
-            print(progress);
-
+            print("progress::$progress::");
             setState(() {
               loadingPercentage = progress.toDouble();
             });
           },
           onPageFinished: (url) {
+            print("url::$url::");
             setState(() {
               loadingPercentage = 100;
             });
           },
-          onWebResourceError: (error) {},
+          onWebResourceError: (error) {
+            print("error::${error.errorCode}::");
+            if (error.errorCode != 200 || error.errorCode != 201) {
+              setState(() {
+                isError = true;
+              });
+            } else {
+              setState(() {
+                isError = false;
+              });
+            }
+          },
           onNavigationRequest: (request) {
             if (!request.url.startsWith("https://github.com/ClementPeter")) {
               return NavigationDecision.prevent;
@@ -60,6 +72,18 @@ class _WebViewProfileState extends State<WebViewProfile> {
 
     super.initState();
   }
+
+  // showDialog(){
+  //   showDialog(context: BuildContext context, builder: builder)
+
+  // }
+  // Widget showErrorDialog(){
+  //   return showDialog(context: context, builder:(context) {
+  //       AlertDialog(
+  //       title: Text('Url Error or Erro loading Url'),
+  //     );
+  //   },);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +102,19 @@ class _WebViewProfileState extends State<WebViewProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Center(
                 child: LinearProgressIndicator(
-                  value: loadingPercentage / 100,
+                  value: loadingPercentage,
                 ),
               ),
-            )
+            ),
+          if (isError == true)
+            const AlertDialog(
+              title: Center(
+                child: Text(
+                  'Oops...Error while loading Url',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
         ],
       ),
     );

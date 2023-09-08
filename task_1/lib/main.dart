@@ -102,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 70),
             child: MaterialButton(
               padding: const EdgeInsets.all(20),
+              //minWidth: MediaQuery.of(context).size.width * 0.4,
               shape: const OutlineInputBorder(),
               onPressed: () {
                 // print("")
@@ -131,6 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          const SizedBox(height: 50),
         ],
       ),
     );
