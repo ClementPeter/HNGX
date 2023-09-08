@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_1/profile.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:task_1/webView_profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,47 +40,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //set webview controller
-  late final WebViewController webViewController;
-
-  //initialize webview
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    webViewController = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(kColorScheme.surfaceTint)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (progress) {
-            CircularProgressIndicator(
-              value: progress.toDouble(),
-            );
-          },
-          onPageStarted: (url) {},
-          onPageFinished: (url) {},
-          onWebResourceError: (error) {},
-          onNavigationRequest: (request) {
-            if (!request.url.startsWith("https://github.com/ClementPeter")) {
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse("https://github.com/ClementPeter"));
-
-    // _webViewController = controller;
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        centerTitle: true,
       ),
       body: ListView(
         children: [
@@ -145,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return Profile(webViewController: webViewController);
+                      return const WebViewProfile();
                     },
                   ),
                 );
@@ -157,7 +121,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     'assets/github.png',
                     width: 24,
                   ),
-                  const Text('Open GitHub'),
+                  const Text(
+                    'Open GitHub',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
