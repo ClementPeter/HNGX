@@ -24,3 +24,4 @@ App to show slack details
 > [**web view**](https://pub.dev/packages/webview_flutter)
 
 ### Appetizer Link  
+https://appetize.io/app/t55xbjctrrvnnxujepjjdksski?device=pixel4&osVersion=11.0&scale=75
