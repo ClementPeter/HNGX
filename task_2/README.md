@@ -23,3 +23,9 @@ Mobile CV
 A Multipage App to display editable CV info in a clean an organized manner
 
 ### Appetizer Link  
+
+
+![Screenshot_1694769259](https://github.com/ClementPeter/HNGX/assets/61213263/9e908e50-fcbb-4e05-b3ec-06ed7134b116)
+
+
+![Screenshot_1694769375](https://github.com/ClementPeter/HNGX/assets/61213263/5fb0ec0a-af21-43d6-a791-17fb7aba210f)
