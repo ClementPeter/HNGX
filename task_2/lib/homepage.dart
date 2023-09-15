@@ -24,51 +24,52 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () async {
-                //result returns dynamic here - which is usable
-                final List result = await Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const EditProfile(),
-                  ),
-                );
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 20),
+        //     child: InkWell(
+        //       onTap: () async {
+        //         //result returns dynamic here - which is usable
+        //         final List result = await Navigator.push(
+        //           context,
+        //           CupertinoPageRoute(
+        //             builder: (context) => const EditProfile(),
+        //           ),
+        //         );
 
-                print('::RESULT from modify ui::');
-                print('::$result::');
+        //         print('::RESULT from modify ui::');
+        //         print('::$result::');
 
-                setState(() {
-                  PersonalDetails personalDetailsUpdated =
-                      personalDetails.copyWith(
-                    fullName: result.elementAt(0),
-                    slackName: result.elementAt(1),
-                    githubHandle: result.elementAt(2),
-                    bio: result.elementAt(3),
-                  );
-                  personalDetails = personalDetailsUpdated;
-                });
-                //return;
-              },
-              child: const Row(
-                children: [
-                  Text(
-                    'Edit CV',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: 10),
-                  Icon(Icons.receipt),
-                ],
-              ),
-            ),
-          )
-        ],
+        //         setState(() {
+        //           PersonalDetails personalDetailsUpdated =
+        //               personalDetails.copyWith(
+        //             fullName: result.elementAt(0),
+        //             slackName: result.elementAt(1),
+        //             githubHandle: result.elementAt(2),
+        //             bio: result.elementAt(3),
+        //           );
+        //           personalDetails = personalDetailsUpdated;
+        //         });
+        //         //return;
+        //       },
+        //       child: const Row(
+        //         children: [
+        //           Text(
+        //             'Edit CV',
+        //             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        //           ),
+        //           SizedBox(width: 10),
+        //           Icon(Icons.receipt),
+        //         ],
+        //       ),
+        //     ),
+        //   )
+        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -87,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 //FullName section
                 const Text(
                   'Full Name',
@@ -146,6 +147,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontSize: 18,
                   ),
                 ),
+                //
+                const SizedBox(height: 30),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      final List result = await Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (BuildContext context) =>
+                              const EditProfile(),
+                        ),
+                      );
+
+                      print('::RESULT from modify ui::');
+                      print('::$result::');
+
+                      setState(() {
+                        PersonalDetails personalDetailsUpdated =
+                            personalDetails.copyWith(
+                          fullName: result.elementAt(0),
+                          slackName: result.elementAt(1),
+                          githubHandle: result.elementAt(2),
+                          bio: result.elementAt(3),
+                        );
+                        personalDetails = personalDetailsUpdated;
+                      });
+                    },
+                    child: const Text('Edit CV'),
+                  ),
+                )
               ],
             ),
           ),
